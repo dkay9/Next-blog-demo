@@ -1,5 +1,4 @@
-import type { Metadata } from "next"
-// import { metadata } from "../layout"
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "About Blog Page",
