@@ -5,8 +5,28 @@ export const metadata: Metadata = {
     description: "Blog Page of the Next.js App"
 }
 
-export default function BlogPage() {
+type Post = {
+  id: number;
+  title: string;
+  body?: string; 
+};
+
+
+export default async function BlogPage() {
+    const res = await fetch("http://localhost:3000/api/posts", {
+        next: { revalidate: 0 }
+    })
+    const posts: Post[] = await res.json();
     return (
-        <h1>Blog Page</h1>
+        <main>
+            <h1>Blog Posts</h1>
+
+            {posts.map((post) => (
+                <article key={post.id} className="mb-6">
+                    <h2>{post.title}</h2>
+                    <p>{post.body}</p>
+                </article>
+            ))}
+        </main>
     )
 }
