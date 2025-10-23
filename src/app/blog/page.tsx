@@ -6,25 +6,27 @@ export const metadata: Metadata = {
 }
 
 type Post = {
-  id: number;
-  title: string;
-  body?: string; 
-};
-
+    id: number;
+    title: string;
+    body?: string;
+}
 
 export default async function BlogPage() {
     const res = await fetch("http://localhost:3000/api/posts", {
         next: { revalidate: 0 }
     })
-    const posts: Post[] = await res.json();
+    if (!res.ok) throw new Error("Failed to fetch posts");
+
+    const posts: Post[] = await res.json()
+
     return (
         <main>
-            <h1>Blog Posts</h1>
+            <h1 className="mb-6">Blog Page </h1>
 
             {posts.map((post) => (
-                <article key={post.id} className="mb-6">
+                <article key={post.id}>
                     <h2>{post.title}</h2>
-                    <p>{post.body}</p>
+                    <p className="mb-6">{post.body}</p>
                 </article>
             ))}
         </main>

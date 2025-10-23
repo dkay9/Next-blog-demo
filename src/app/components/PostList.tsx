@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 
-interface Post {
+type Post = {
     id: number;
     title: string
 }
 
-interface PostListProps {
+type PostListProps = {
     posts: Post[]
 }
 
